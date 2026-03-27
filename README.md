@@ -1,4 +1,4 @@
-# TaxAgent
+# TaxAgent - The way to pay less tax
 
 Production-ready starter for a hybrid Tax RAG system:
 - Managed LLM APIs (OpenAI/Anthropic)
