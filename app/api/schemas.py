@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pydantic import BaseModel, Field
 
+from app.rag.schemas import Citation
 from app.rag.schemas import RecommendationResponse
 
 
@@ -23,7 +24,7 @@ class QueryRequest(BaseModel):
 
 class QueryResponse(BaseModel):
     answer: str
-    citations: list[dict]
+    citations: list[Citation]
 
 
 class RecommendRequest(BaseModel):

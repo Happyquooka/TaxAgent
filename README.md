@@ -13,7 +13,7 @@ Production-ready starter for a hybrid Tax RAG system:
 2. Install dependencies:
    - `pip install -r requirements.txt`
 3. Start infra:
-   - `docker compose up -d postgres`
+   - `docker compose up -d postgres redis`
 4. Run API:
    - `make dev`
 5. Run smoke checks (in a second terminal while API is running):
@@ -22,7 +22,7 @@ Production-ready starter for a hybrid Tax RAG system:
 ## API Endpoints
 
 - `GET /health`
-- `GET /health/dependencies`
+- `GET /api/v1/health/dependencies`
 - `POST /api/v1/ingest`
 - `POST /api/v1/query`
 - `POST /api/v1/recommend-sections`
@@ -47,7 +47,7 @@ This repo includes a ready-to-use `.devcontainer` setup.
    - dependencies install automatically
    - `.env` is copied from `.env.example` if missing
 4. On each start:
-   - `docker compose up -d postgres` runs automatically
+   - `docker compose up -d postgres redis` runs automatically
 5. Start API:
    - `make dev`
 6. Redis:

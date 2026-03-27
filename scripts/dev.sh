@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "[dev] Starting local dependencies (Postgres only)..."
+echo "[dev] Starting local dependencies (Postgres + Redis)..."
 if command -v docker >/dev/null 2>&1; then
-  docker compose up -d postgres
+  docker compose up -d postgres redis
 fi
 
 if [ ! -f ".env" ] && [ -f ".env.example" ]; then

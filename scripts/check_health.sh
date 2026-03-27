@@ -10,12 +10,17 @@ if command -v docker >/dev/null 2>&1; then
   else
     POSTGRES_OK="not_running"
   fi
+  if docker compose ps redis >/dev/null 2>&1; then
+    REDIS_OK="running_or_configured"
+  else
+    REDIS_OK="not_running"
+  fi
 fi
 
 if [ -n "${REDIS_URL:-}" ]; then
-  REDIS_OK="configured"
+  REDIS_OK="${REDIS_OK},env_configured"
 else
-  REDIS_OK="missing_REDIS_URL"
+  REDIS_OK="${REDIS_OK},missing_REDIS_URL"
 fi
 
 echo "[health] postgres=${POSTGRES_OK}"

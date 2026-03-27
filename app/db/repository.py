@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections.abc import Iterable
 from typing import Any
 
-from sqlalchemy import select
+from sqlalchemy import or_, select
 from sqlalchemy.orm import Session
 
 from app.db.models import Chunk, Document
@@ -42,7 +42,8 @@ class DocumentRepository:
         stmt = select(Chunk).join(Document)
         if assessment_year:
             stmt = stmt.where(Document.assessment_year == assessment_year)
-        for term in query_terms:
-            stmt = stmt.where(Chunk.content.ilike(f"%{term}%"))
+        if query_terms:
+            # Use OR matching across terms to improve recall for natural queries.
+            stmt = stmt.where(or_(*[Chunk.content.ilike(f"%{term}%") for term in query_terms]))
         stmt = stmt.limit(top_k)
         return list(self.db.execute(stmt).scalars().all())

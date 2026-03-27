@@ -6,7 +6,7 @@ install:
 	pip install -r requirements.txt
 
 infra:
-	docker compose up -d postgres
+	docker compose up -d postgres redis
 
 health:
 	bash scripts/check_health.sh
