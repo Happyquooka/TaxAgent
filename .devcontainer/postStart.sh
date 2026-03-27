@@ -14,6 +14,17 @@ warn() {
   echo "[postStart][warn] $*"
 }
 
+ensure_python_deps() {
+  if ! python -c "import uvicorn" >/dev/null 2>&1; then
+    warn "uvicorn not found in environment; installing requirements..."
+    if ! python -m pip install -r requirements.txt; then
+      warn "Dependency installation failed."
+      return 1
+    fi
+  fi
+  return 0
+}
+
 if command -v docker >/dev/null 2>&1; then
   # Docker-in-Docker can take a moment after container start.
   DOCKER_READY="false"
@@ -69,7 +80,7 @@ if pgrep -f "uvicorn app.main:app" >/dev/null 2>&1; then
   echo "FastAPI process already exists. Checking readiness..."
 else
   echo "Starting FastAPI in background..."
-  if nohup uvicorn app.main:app --reload --host 0.0.0.0 --port 8000 > .devcontainer/api.log 2>&1 & then
+  if ensure_python_deps && nohup python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000 > .devcontainer/api.log 2>&1 & then
     API_PID="$!"
     STARTED_NEW="true"
   else
