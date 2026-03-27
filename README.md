@@ -48,8 +48,9 @@ This repo includes a ready-to-use `.devcontainer` setup.
    - `.env` is copied from `.env.example` if missing
 4. On each start:
    - `docker compose up -d postgres redis` runs automatically
-5. Start API:
-   - `make dev`
+5. FastAPI:
+   - starts automatically on Codespace start at `http://localhost:8000`
+   - logs are written to `.devcontainer/api.log`
 6. Redis:
    - set `REDIS_URL` to your Upstash `rediss://...` connection string (already supported)
 
