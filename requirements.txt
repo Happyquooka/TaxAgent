@@ -1,0 +1,33 @@
+# LLM
+anthropic>=0.30.0
+openai>=1.35.0
+
+# RAG + Agents
+langchain>=0.2.0
+langchain-anthropic>=0.1.15
+langchain-community>=0.2.0
+langgraph>=0.1.0
+llama-index>=0.10.0
+
+# Vector DB
+pgvector>=0.3.0
+psycopg2-binary>=2.9.9
+sqlalchemy>=2.0.0
+
+# API
+fastapi>=0.111.0
+uvicorn>=0.30.0
+pydantic>=2.7.0
+python-multipart>=0.0.9
+
+# Observability + Eval
+langfuse>=2.0.0
+ragas>=0.1.0
+
+# Caching
+upstash-redis>=1.0.0
+
+# Utils
+python-dotenv>=1.0.0
+pypdf>=4.2.0
+tiktoken>=0.7.0
