@@ -1,1 +1,1 @@
-
+"""TaxAgent application package."""

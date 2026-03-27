@@ -1,19 +1,51 @@
 {
-  "name": "TaxSage AI",
-  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  "name": "TaxAgent Codespace",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
   "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "moby": true
+    }
   },
-  "postCreateCommand": "pip install fastapi uvicorn anthropic langchain langchain-anthropic langfuse python-dotenv pypdf",
-  "forwardPorts": [8000],
+  "remoteUser": "vscode",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "forwardPorts": [8000, 5432, 6379],
   "portsAttributes": {
-    "8000": { "label": "FastAPI", "onAutoForward": "notify" }
+    "8000": {
+      "label": "FastAPI",
+      "onAutoForward": "notify"
+    },
+    "5432": {
+      "label": "Postgres",
+      "onAutoForward": "silent"
+    },
+    "6379": {
+      "label": "Redis",
+      "onAutoForward": "silent"
+    }
   },
+  "containerEnv": {
+    "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONUNBUFFERED": "1"
+  },
+  "postCreateCommand": "bash .devcontainer/postCreate.sh",
+  "postStartCommand": "bash .devcontainer/postStart.sh",
   "customizations": {
     "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.analysis.typeCheckingMode": "basic",
+        "editor.formatOnSave": true
+      },
       "extensions": [
         "ms-python.python",
-        "ms-python.vscode-pylance"
+        "ms-python.vscode-pylance",
+        "ms-azuretools.vscode-docker",
+        "ms-python.black-formatter"
       ]
     }
   }
