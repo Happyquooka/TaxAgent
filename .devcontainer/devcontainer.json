@@ -2,30 +2,18 @@
   "name": "TaxSage AI",
   "image": "mcr.microsoft.com/devcontainers/python:3.11",
   "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    "ghcr.io/devcontainers/features/git:1": {}
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
-  "onCreateCommand": "pip install -r requirements.txt",
-  "postStartCommand": "docker compose up -d",
-  "forwardPorts": [8000, 5432, 6379],
+  "postCreateCommand": "pip install fastapi uvicorn anthropic langchain langchain-anthropic langfuse python-dotenv pypdf",
+  "forwardPorts": [8000],
   "portsAttributes": {
     "8000": { "label": "FastAPI", "onAutoForward": "notify" }
-  },
-  "secrets": {
-    "ANTHROPIC_API_KEY": {},
-    "LANGFUSE_PUBLIC_KEY": {},
-    "LANGFUSE_SECRET_KEY": {},
-    "UPSTASH_REDIS_URL": {},
-    "UPSTASH_REDIS_TOKEN": {},
-    "DATABASE_URL": {}
   },
   "customizations": {
     "vscode": {
       "extensions": [
         "ms-python.python",
-        "ms-python.vscode-pylance",
-        "mtxr.sqltools",
-        "rangav.vscode-thunder-client"
+        "ms-python.vscode-pylance"
       ]
     }
   }
